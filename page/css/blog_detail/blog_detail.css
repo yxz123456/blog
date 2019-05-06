@@ -1,0 +1,28 @@
+.blog{
+    width: 100%;
+    background-color: #eee;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 1px 2px 1px #888;
+}
+
+.blog .title{
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.blog .msg{
+    padding-bottom: 10px;
+    border-bottom: 1px solid gray;
+}
+
+.blog .content{
+    width: 100%;
+    overflow-x: scroll;
+}
+.blog .content *{
+    word-wrap:break-word;
+    word-break:break-all;
+
+}

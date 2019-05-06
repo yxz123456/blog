@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人博客</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/index/header.css">
+    <link rel="stylesheet" href="css/index/content.css">
+    <link rel="stylesheet" href="css/index/footer.css">
+    <script src="https://lib.baomitu.com/vue/2.6.10/vue.common.dev.js"></script>
+    <script src="./js/utils/utils.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="nav">
+                <ul>
+                    <li><a href="/">我的个人博客 | 技术博客</a></li>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/siteMap.html">文章</a></li>
+                    <li><a>关于</a></li>
+                    <li><a>留言</a></li>
+                </ul>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="输入关键词查找">
+                <button>搜索</button>
+            </div>
+        </div>
+    </header>
+    <div class="content">
+        <div class="content_left">
+            <div class="every_day" id="every_day">
+                <span>每日一句</span>
+                <p class="chinese" >
+                    {{getChinese}}
+                    <span v-text="getAuthor"></span>
+                </p>
+            </div>
+            <div class="article_list" id="article_list" >
+                <div class="item" v-for="(item,index) in article_list" :key="index">
+                    <a class="top" :href="item.link">
+                        <p class="title">
+                        <h4>{{item.title}}</h4>
+                        </p>
+                        <p class="article">
+                            {{item.content}}
+                        </p>
+                    </a>
+                    <div class="explain">
+                        <span class="date">发布于{{item.date}} |</span>
+                        <span class="views"> 浏览({{item.views}}) |</span>
+                        <span class="tag">Tags：{{item.tags}}</span>
+                    </div>
+                </div>
+                <ul class="page_tool">
+                    <li v-for="pageNum in pageNumList"
+                        @click="jumpToPage(pageNum.page)"
+                        :class="{active:(pageNum.text == page)}">
+                        {{pageNum.text}}
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="content_right">
+            <div class="right_module">
+                <div class="right_module_title">
+                    随机标签云
+                </div>
+                <div class="right_module_content">
+                    <ul class="tag" id="tags">
+                        <li v-for="(tag,index) in tags" :key="tag.TagName + '' +index" >
+                            <a :href="tag.link" :style="{color:randomColor(),fontSize:randomFontSize()}">{{tag.tagName}}</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="right_module">
+                <div class="right_module_title">
+                    最近热门
+                </div>
+                <div class="right_module_content">
+                    <ul class="hot" id="hot">
+                        <li v-for="(hot,index) in hotList" :key="hot.title + '' + index">
+                            <a :href="hot.link">{{hot.title}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="right_module">
+                <div class="right_module_title">
+                    最新评论
+                </div>
+                <div class="right_module_content">
+                    <ul class="comment" id="newComment">
+                        <li v-for="(comment,index) in commentList" :key="comment.userName + '' + index">
+                            <p>
+                                <span>{{comment.userName}}</span>
+                                <span>{{comment.date}}</span>
+                            </p>
+                            <a href="" style="color:#777">{{comment.content}}</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="info">
+            我的个人博客
+        </div>
+    </footer>
+    <script src="./js/axios.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/base.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+
+/*头部*/
+a{
+    color: #fff;
+}
+ul{
+    list-style: none;
+}
+.header{
+    background-color: #191818;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    color:#eee;
+    position: fixed;
+    z-index: 999;
+}
+.header .container{
+    max-width: 1170px;
+    margin:0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding:0 10px;
+}
+.header ul{
+    display: flex;
+    list-style: none;
+    width: 450px;
+    justify-content: space-around;
+}
+.header ul>li:first-child{
+    font-size: 18px;
+}
+
+.header .search input{
+    outline: none;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 5px;
+    padding: 3px 6px;
+    border: 1px solid #191818;
+}
+.header .search button{
+    width: 50px;
+    height: 31px;
+    border: none;
+    background-color: #fff;
+    border-radius: 5px;
+}
+.header .search button:hover{
+    cursor:pointer;
+}
+
+/*content*/
+

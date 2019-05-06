@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章编辑</title>
+    <link rel="stylesheet" href="./css/edit/blog_edit.css">
+    <script src="./js/axios.js"></script>
+</head>
+<body>
+<div class="wrapper" id="edit">
+    <h1>文章编辑</h1>
+    <div class="title">
+        <input type="text" placeholder="请输入标题" class="input" v-model="title">
+        <br/>
+        <input type="text" placeholder="请输入标签" class="input" v-model="tag">
+        <div class="button add" @click="addTag">添加</div>
+        <ul class="tags">
+            <li v-for="(tag,index) in tags" :key="tag + index">
+                {{tag}}
+                <div class="cancel" @click="cancel(index)"></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="editor">
+    <p>欢迎使用...</p>
+</div>
+<div class="button submit">
+    提交
+</div>
+
+
+<!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
+<script type="text/javascript" src="https://unpkg.com/wangeditor/release/wangEditor.min.js"></script>
+<script type="text/javascript">
+    var E = window.wangEditor;
+    var editor = new E('#editor');
+    editor.create();
+</script>
+<script src="https://lib.baomitu.com/vue/2.6.10/vue.common.dev.js"></script>
+<script src="./js/edit_blog.js"></script>
+</body>
+</html>
