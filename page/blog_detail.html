@@ -36,7 +36,35 @@
             <div class="msg">
                 分类:{{tags}}&nbsp&nbsp&nbsp发布于:{{date}}&nbsp&nbsp&nbsp浏览:({{views}})
             </div>
-            <div class="content" v-html="content"></div>
+            <div class="article" v-html="content"></div>
+        </div>
+        <div id="comment">
+            <div class="title">{{title}}: 目前有{{total}}条留言</div>
+            <div class="comment">
+                <ul class="user_comment">
+
+                    <li v-for="(item,index) in comments" class="parent">
+                        <div><span class="user_name">{{item.user_name}}</span>: {{item.ctime}} <a href="#send_comment" class="answer" @click="answer(item.id,item.user_name)">[回复]</a></div>
+                        <div class="comment_content">{{item.comments}}</div>
+                        <div class="child" v-if="item.children.length > 0" v-for="(v,i) in item.children">
+                            <div><span class="user_name">{{v.user_name}}</span> : {{v.ctime}}</div>
+                            <div class="comment_content">{{v.comments}}</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="send_comment" id="send_comment">
+            <div class="title">发表评论</div>
+            <input type="text" class="name" placeholder="昵称" v-model="name">
+            <input type="email" class="Email" placeholder="邮箱(评论被回复可以收到)" v-model="email">
+            <textarea class="comment_content" cols="30" rows="10" placeholder="请发表评论..." v-model="comment"></textarea>
+            <div class="test">
+                <input type="text"  placeholder="验证码" v-model="test">
+                <span v-html="randomCode" @click="getRandomCode" class="randomCode"></span>
+                <span class="err" v-text="err"></span>
+            </div>
+            <div class="submit" @click="sendComment">提交留言</div>
         </div>
     </div>
     <div class="content_right">

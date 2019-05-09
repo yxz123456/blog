@@ -4,6 +4,7 @@
     padding: 20px;
     box-sizing: border-box;
     box-shadow: 1px 2px 1px #888;
+    margin-bottom: 30px;
 }
 
 .blog .title{
@@ -15,14 +16,134 @@
 .blog .msg{
     padding-bottom: 10px;
     border-bottom: 1px solid gray;
+    margin-bottom: 20px;
 }
 
-.blog .content{
+.blog .article{
     width: 100%;
-    overflow-x: scroll;
+    overflow-x:scroll;
 }
-.blog .content *{
-    word-wrap:break-word;
-    word-break:break-all;
 
+/*评论*/
+#comment .comment{
+
+    margin: 20px 0;
 }
+#comment .comment .parent{
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(7,7,7,0.2);
+}
+#comment .comment .child{
+    margin: 10px 0 10px 50px;
+}
+#comment .comment .user_name{
+    color: #7b8ace;
+    font-weight: bold;
+}
+
+#comment .comment .answer{
+    color:#5CC2CE;
+}
+#comment .comment .comment_content{
+    margin-top: 10px;
+}
+
+/*评论框*/
+.send_comment{
+    width: 100%;
+    background-color: #eee;
+    box-sizing: border-box;
+    box-shadow: 1px 2px 1px #888;
+    padding: 20px 20px 20px 40px;
+}
+
+.send_comment .title{
+    font-size: 18px;
+}
+
+.send_comment input{
+    width: 200px;
+    height: 20px;
+    padding: 5px 0 5px 5px;
+    line-height: 20px;
+    border: none;
+    outline: none;
+    border: 1px solid #888;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.send_comment .name, .email{
+    margin: 15px 15px 15px 0;
+}
+
+.send_comment input:focus{
+    border: 1px solid #5CC2CE;
+}
+.send_comment textarea{
+    padding: 10px;
+    width: 90%;
+    display: block;
+    border: none;
+    outline: none;
+    border: 1px solid #888;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.send_comment textarea:focus{
+    border: 1px solid #5CC2CE;
+}
+
+.send_comment .test{
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+}
+.send_comment .randomCode{
+    margin: 0 15px;
+    display: inline-block;
+    height: 30px;
+    background-color: white;
+}
+.send_comment .err{
+    color:red;
+    font-size: 12px;
+    display: inline-block;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.send_comment .submit{
+    width: 100px;
+    height: 30px;
+    position: relative;
+    border-radius: 5px;
+    border: 1px solid #777;
+    background:#fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    transition: all .6s;
+    line-height: 30px;
+    text-align: center;
+}
+.submit:hover{
+    background-color: #777777;
+    color: white;
+    transform:scale(1.25,1.25);
+    cursor: pointer;
+}
+.submit::after{
+    content:"";
+    position:absolute;
+    left: 0;
+    top: 0;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition:all .6s;
+}
+.submit:hover::after{
+    opacity: 1;
+}
+

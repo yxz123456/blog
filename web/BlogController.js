@@ -14,6 +14,15 @@ function queryBlogCount(request, response){
 }
 path.set("/queryBlogCount", queryBlogCount);
 
+function queryAllBlog(request, response){
+    blogDao.queryAllBlog((res) => {
+        response.send(respUtil.writeRes("success", "查询成功", res));
+        response.end();
+    })
+}
+path.set("/queryAllBlog", queryAllBlog);
+
+
 function queryBlogById(request, response){
     let id = request.query.blogId;
     blogDao.queryBlogById(id,(res) => {

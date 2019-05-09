@@ -18,7 +18,9 @@
   "homepage": "https://github.com/yxz123456/personalBlog#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "body-parser": "^1.19.0",
     "express": "^4.16.4",
-    "mysql": "^2.17.1"
+    "mysql": "^2.17.1",
+    "svg-captcha": "^1.4.0"
   }
 }

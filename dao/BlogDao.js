@@ -69,9 +69,26 @@ function queryBlogById(id,success) {
     connection.end();
 }
 
+function queryAllBlog(success) {
+    let querySql = "select * from blog;";
+    let params = [];
+
+    let connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql, params, function (error, result) {
+        if (error == null) {
+            success(result);
+        } else {
+            console.log(error);
+        }
+    });
+    connection.end();
+}
+
 module.exports = {
     insertBlog,
     queryBlogByPage,
     queryBlogCount,
-    queryBlogById
+    queryBlogById,
+    queryAllBlog
 }
