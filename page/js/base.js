@@ -1,14 +1,24 @@
 var randomTags = new Vue({
     el: "#tags",
     data:{
-        tags:[{tagName:'123',link:'/'},
-            {tagName:'asfas',link:'/'},
-            {tagName:'1dsgfd23',link:'/'},
-            {tagName:'fghfj',link:'/'},
-            {tagName:'fgfdds',link:'/'},
-            {tagName:'swqr',link:'/'},
-            {tagName:'zvxv',link:'/'},
-            {tagName:'vcnbvn',link:'/'}]
+        tags:[]
+    },
+    methods:{
+        getRandomTags(){
+            axios({
+                method:"GET",
+                url:"/queryRandomTag"
+            }).then((res) => {
+                let result = res.data.data;
+                result.forEach((val) => {
+                    val.link = `/?tagId=${val.id}`
+                })
+                this.tags = result;
+                console.log('tag',res);
+            }).catch((err) => {
+                console.log(err);
+            })
+        },
     },
     computed:{
         randomColor(){
@@ -27,57 +37,60 @@ var randomTags = new Vue({
         }
     },
     created(){
-
+        this.getRandomTags();
     }
 });
 
 var hot = new Vue({
     el:"#hot",
     data:{
-        hotList:[
-            {title:'sasdgd',link:'/'},
-            {title:'afasf',link:'/'},
-            {title:'afdgsasf',link:'/'},
-            {title:'dsgdsg',link:'/'},
-            {title:'sdgsg',link:'/'},
-            {title:'afhgjkghkasf',link:'/'},
-            {title:'kbm',link:'/'},
-            {title:'vbnvn',link:'/'},
-        ]
+        hotList:[]
+    },
+    methods:{
+        getHotBlog(){
+            axios({
+                method:"GET",
+                url:"/queryHotBlog"
+            }).then((res) => {
+                let result = res.data.data;
+                result.forEach((val) => {
+                    val.link = `/blog_detail.html?blogId=${val.id}`;
+                });
+                this.hotList = result;
+                console.log("hot",res);
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
     },
     created(){
-        //
+        this.getHotBlog();
     }
 });
 
 var newComments = new Vue({
     el:"#newComment",
     data:{
-        commentList:[
-            {
-                userName:'张三',
-                date:'2019-5-4',
-                content: 'asfgfasf',
-                link:'/'
-            },{
-                userName:'张三',
-                date:'2019-5-4',
-                content: 'asfgfasf',
-                link:'/'
-            },{
-                userName:'张三',
-                date:'2019-5-4',
-                content: 'asfgfasf',
-                link:'/'
-            },{
-                userName:'张三',
-                date:'2019-5-4',
-                content: 'asfgfasf',
-                link:'/'
-            },
-        ]
+        commentList:[]
+    },
+    methods:{
+        getNewComments(){
+            axios({
+                method:"GET",
+                url:"/queryNewComments"
+            }).then((res) => {
+                let result = res.data.data;
+                result.forEach((val) => {
+                    val.ctime = formatTime(val.ctime*1000);
+                });
+                this.commentList = result;
+                console.log(res)
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
     },
     created(){
-
+        this.getNewComments();
     }
 });

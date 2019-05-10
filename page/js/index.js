@@ -1,4 +1,4 @@
-var everyDay = new Vue({
+let everyDay = new Vue({
     el:"#every_day",
     data:{
         chinese:'',
@@ -26,7 +26,7 @@ var everyDay = new Vue({
     }
 });
 
-var article = new Vue({
+let article = new Vue({
     el:"#article_list",
     data: {
         page:1,
@@ -43,39 +43,80 @@ var article = new Vue({
         },
         getPage(){
             return function(page,pageSize){
-                axios({
-                    method:"GET",
-                    url:`/queryBlogByPage?page=${page-1}&pageSize=${pageSize}`
-                }).then((res) => {
-                    let result = res.data.data;
-                    let list = [];
-                    result.forEach((val) => {
-                        let temp = {
-                            title:val.title,
-                            content:val.content,
-                            date:formatTime(val.ctime*1000),
-                            views:val.viewCount,
-                            tags:val.tags.replace('|'," "),
-                            link:`/blog_detail.html?blogId=${val.id}`
+                let params = location.search.includes("?") ? location.search.split("?")[1].split("&") : "";
+                let tagId = "";
+                for (var i = 0 ; i < params.length ; i ++) {
+                    if (params[i].split("=")[0] == "tagId") {
+                        try {
+                            console.log(params[i].split("=")[1])
+                            tagId = parseInt(params[i].split("=")[1]);
+                        }catch (e) {
+                            console.log(e);
                         }
-                        list.push(temp);
-                    })
-                    this.article_list = list;
-                    this.page = page;
-                    console.log(res);
-                }).catch((err) => {
-                    console.log('blog查询错误',err);
-                });
-                axios({
-                    method: "GET",
-                    url: "/queryBlogCount"
-                }).then((res) => {
-                    console.log(res)
-                    this.count = res.data.data[0].count;
-                    this.generatePageTool;
-                }).catch((err) => {
-                    console.log(err);
-                });
+                    }
+                }
+                if(tagId == ""){
+                    axios({
+                        method:"GET",
+                        url:`/queryBlogByPage?page=${page-1}&pageSize=${pageSize}`
+                    }).then((res) => {
+                        let result = res.data.data;
+                        let list = [];
+                        result.forEach((val) => {
+                            let temp = {
+                                title:val.title,
+                                content:val.content,
+                                date:formatTime(val.ctime*1000),
+                                views:val.viewCount,
+                                tags:val.tags.replace(/[|]/g," "),
+                                link:`/blog_detail.html?blogId=${val.id}`
+                            }
+                            list.push(temp);
+                        })
+                        this.article_list = list;
+                        this.page = page;
+                        console.log('blog',res);
+                    }).catch((err) => {
+                        console.log('blog查询错误',err);
+                    });
+                    axios({
+                        method: "GET",
+                        url: "/queryBlogCount"
+                    }).then((res) => {
+                        console.log(res);
+                        this.count = res.data.data[0].count;
+                        this.generatePageTool;
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                }
+                else{
+                    axios({
+                        method:"GET",
+                        url:`queryBlogByTagId?tagId=${tagId}&page=${page - 1}&pageSize=${pageSize}`
+                    }).then((res) => {
+                        let result = res.data.data;
+                        let list = [];
+                        result.forEach((val) => {
+                            let temp = {
+                                title:val.title,
+                                content:val.content,
+                                date:formatTime(val.ctime*1000),
+                                views:val.viewCount,
+                                tags:val.tags.replace(/[|]/g," "),
+                                link:`/blog_detail.html?blogId=${val.id}`
+                            }
+                            list.push(temp);
+                        })
+                        this.article_list = list;
+                        this.count = list.length;
+                        this.generatePageTool;
+                        this.page = page;
+                        console.log(res);
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                }
 
             }
         },
@@ -107,4 +148,4 @@ var article = new Vue({
     created(){
         this.getPage(this.page, this.pageSize);
     }
-})
+});

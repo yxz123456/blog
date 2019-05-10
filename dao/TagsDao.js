@@ -31,7 +31,22 @@ function queryTag(tag, success) {
     connection.end();
 }
 
+function queryRandomTag(success) {
+    var querySql = "select * from tags order by rand() limit 20;";
+    var params = [];
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql, params, function (error, result) {
+        if (error == null) {
+            success(result);
+        } else {
+            console.log(error);
+        }
+    });
+    connection.end();
+}
 module.exports = {
     insertTag,
-    queryTag
+    queryTag,
+    queryRandomTag
 }

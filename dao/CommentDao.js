@@ -47,9 +47,9 @@ function queryCommentCountByBlogId(blogId, success) {
     connection.end();
 }
 
-function queryNewComments(size, success) {
-    var querySql = "select * from comments order by id desc limit ?;";
-    var params = [size];
+function queryNewComments(success) {
+    var querySql = "select * from comments order by id desc limit 5;";
+    var params = [];
     var connection = dbutil.createConnection();
     connection.connect();
     connection.query(querySql, params, function (error, result) {

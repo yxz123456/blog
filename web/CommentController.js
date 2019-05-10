@@ -5,6 +5,14 @@ const url = require("url");
 const captcha = require("svg-captcha");
 var path = new Map();
 
+function queryNewComments(request, response) {
+    commentDao.queryNewComments(function (result) {
+        response.send(respUtil.writeRes("success", "查询成功", result));
+        response.end();
+    });
+}
+path.set("/queryNewComments", queryNewComments);
+
 function queryCommentsByBlogId(request, response) {
     var params = url.parse(request.url, true).query;
     commentDao.queryCommentsByBlogId(parseInt(params.blogId), function(result) {

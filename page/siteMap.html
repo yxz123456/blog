@@ -5,6 +5,8 @@
     <title>Title</title>
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/siteMap/sitmap.css">
+    <script src="https://lib.baomitu.com/vue/2.6.10/vue.common.dev.js"></script>
+    <script src="./js/axios.js"></script>
 </head>
 <body>
     <header class="header">
@@ -17,8 +19,8 @@
     <div class="module">
         <h4 class="title">最新文章</h4>
         <ul class="article_list" id="article_list">
-            <li>
-                <a href="">111</a>
+            <li v-for="item in articleList">
+                <a :href="item.link">{{item.title}}</a>
             </li>
         </ul>
     </div>
@@ -26,7 +28,7 @@
 </div>
 <footer class="footer">
     <div class="info">SiteMap Latest Update: 2019-05-03 10:37:33</div>
-
 </footer>
+    <script src="./js/site_map.js"></script>
 </body>
 </html>

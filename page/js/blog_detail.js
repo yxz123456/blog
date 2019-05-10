@@ -15,7 +15,6 @@ let blogDetail = new Vue({
                 return;
             }
             let bid = -1;
-
             for (var i = 0 ; i < params.length ; i ++) {
                 if (params[i].split("=")[0] == "blogId") {
                     try {
@@ -40,6 +39,14 @@ let blogDetail = new Vue({
                 console.log(res);
             }).catch((err) => {
                 console.log(err)
+            })
+            axios({
+                method:"GET",
+                url:`/addViews?blogId=${bid}`
+            }).then((res) => {
+                console.log(res);
+            }).catch((err) => {
+                console.log(err);
             })
         }
     },

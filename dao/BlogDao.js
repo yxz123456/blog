@@ -85,10 +85,48 @@ function queryAllBlog(success) {
     connection.end();
 }
 
+
+function addViews(blogId, success) {
+    let querySql = "update blog set viewCount = viewCount + 1 where id = ?;";
+    let params = [blogId];
+
+    let connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql, params, function (error, result) {
+        if (error == null) {
+            success(result);
+        } else {
+            console.log(error);
+        }
+    });
+    connection.end();
+}
+
+function queryHotBlog(success) {
+    var querySql = "select * from blog order by viewCount desc limit 10;";
+    var params = [];
+
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql, params, function (error, result) {
+        if (error == null) {
+            success(result);
+        } else {
+            console.log(error);
+        }
+    });
+    connection.end();
+}
+
+
+
 module.exports = {
     insertBlog,
     queryBlogByPage,
     queryBlogCount,
     queryBlogById,
-    queryAllBlog
+    queryAllBlog,
+    addViews,
+    queryHotBlog,
+    // queryBlogCountByTagId
 }
